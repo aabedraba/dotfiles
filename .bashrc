@@ -116,6 +116,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
+
 ## Git configuration got tab completion and prompts
 green="\[\033[0;32m\]"
 blue="\[\033[0;34m\]"
@@ -136,9 +137,6 @@ alias code='codium'
 ##Go Programming language
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/usr/local/tinygo/bin
-
-#Kubernetes Autocomplete
-source <(kubectl completion bash)
 
 #Jetbrains IDEs
 export PATH=$PATH:/usr/local/pycharm-community-2019.3/bin
