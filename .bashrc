@@ -116,14 +116,14 @@ if ! shopt -oq posix; then
   fi
 fi
 
+## Jump 
+eval "$(jump shell --bind=j)"
 
 ## Git configuration got tab completion and prompts
 green="\[\033[0;32m\]"
 blue="\[\033[0;34m\]"
 purple="\[\033[0;35m\]"
 reset="\[\033[0m\]"
-source ~/.git-configs/.git-prompt.sh
-source ~/.git-configs/.git-completion.bash
 export GIT_PS1_SHOWDIRTYSTATE=1
 export PS1="$purple\u$green\$(__git_ps1)$blue \W $ $reset"
 export ADOG="--all --decorate --oneline --graph"
@@ -132,19 +132,21 @@ export ADOG="--all --decorate --oneline --graph"
 PATH=$PATH:/usr/local/Telegram
 
 ##Editor 
-alias code='codium'
+export EDITOR=vim
 
 ##Go Programming language
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:/usr/local/tinygo/bin
+export PATH=$PATH:~/go/bin
+export GOPATH=$HOME/go
+export GOROOT=/usr/local/go
 
 #Jetbrains IDEs
 export PATH=$PATH:/usr/local/pycharm-community-2019.3/bin
 export PATH=$PATH:/usr/local/GoLand-2019.3/bin
 export PATH=$PATH:/usr/local/clion-2019.3/bin
-export PATH=$PATH:/usr/local/idea-IC-192.6817.14/bin
+export PATH=$PATH:/opt/idea-IU-201.8743.12/bin
 export PATH=$PATH:/opt/DataGrip-2019.2.5/bin
 export PATH=$PATH:/usr/local/WebStorm-201.6668.106/bin
+export PATH=$PATH:/opt/android-studio/bin
 
 #Google Codelabs Tool
 export PATH=$PATH:/home/aabedraba/go/src/github.com/googlecodelabs/tools/claat/bin
@@ -152,3 +154,38 @@ export PATH=$PATH:/home/aabedraba/go/src/github.com/googlecodelabs/tools/claat/b
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+complete -C /usr/local/bin/terraform terraform
+
+## Export envs for .env variable
+alias envs='export $(grep -v '^#' .env)'
+## Start tmux
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  exec tmux
+fi
+
+## Bazel
+alias bazel="bazel-1.0.0"
+
+## Git config
+
+alias fp="git push -f"
+alias amend="git commit --amend"
+alias master="git checkout master && git pull"
+alias sd="git stash && git stash drop"
+alias s="git stash"
+alias prk="hub pull-request -r kevinsimper"
+alias pr="hub pull-request"
+alias p="git push"
+alias prune="git fetch --prune"
+m() {
+    git commit -m "$@"
+    git push &>/dev/null &
+}
+setupstream() {
+    git branch -u "origin/$(git branch --show-current)"
+}
+deletemerged() {
+    git branch --merged master | egrep -v '^\s*\*?\s*master$' | xargs git branch -d
+}
+
