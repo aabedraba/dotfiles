@@ -128,6 +128,8 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 export PS1="$purple\u$green\$(__git_ps1)$blue \W $ $reset"
 export ADOG="--all --decorate --oneline --graph"
 
+## Add automate tab
+export PATH=$PATH:/home/aabedraba/automate/bin
 ## Telegram
 PATH=$PATH:/usr/local/Telegram
 
@@ -136,6 +138,7 @@ export EDITOR=vim
 
 ##Go Programming language
 export PATH=$PATH:~/go/bin
+export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/go
 export GOROOT=/usr/local/go
 
@@ -159,28 +162,55 @@ complete -C /usr/local/bin/terraform terraform
 
 ## Export envs for .env variable
 alias envs='export $(grep -v '^#' .env)'
+
 ## Start tmux
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
   exec tmux
 fi
 
+## Logitech Camera Fix
+cameraFix() {
+  v4l2-ctl -d 0 -c focus_auto=0
+  v4l2-ctl -d 0 -c focus_absolute=45
+}
+focus(){
+  v4l2-ctl -d 0 -c focus_absolute=$@
+}
+
+## Node
+alias s="npm start"
+alias n="node -r esm"
+alias nn="npx nodemon -r esm"
+alias tsn="npx ts-node -r esm"
 ## Bazel
 alias bazel="bazel-1.0.0"
-
 ## Git config
-
+alias check="hub pr checkout"
+alias hub="gh"
 alias fp="git push -f"
-alias amend="git commit --amend"
+alias amend="git commit --amend && fp"
 alias master="git checkout master && git pull"
+alias st="git stash"
 alias sd="git stash && git stash drop"
-alias s="git stash"
-alias prk="hub pull-request -r kevinsimper"
-alias pr="hub pull-request"
+alias stat="git status"
+alias prk="hub pr create -r kevinsimper"
+alias pr="hub pr create"
 alias p="git push"
 alias prune="git fetch --prune"
+alias show="hub pr view --web"
+alias draft="hub pr create -d"
+#Stash, change branch, and pop
+stp () {
+    git stash
+    git checkout "$@"
+    git stash pop
+}
+
+nb () {
+    git checkout -b "$@"
+}
 m() {
-    git commit -m "$@"
-    git push &>/dev/null &
+    git commit -m "$@" && git push
 }
 setupstream() {
     git branch -u "origin/$(git branch --show-current)"
@@ -188,4 +218,3 @@ setupstream() {
 deletemerged() {
     git branch --merged master | egrep -v '^\s*\*?\s*master$' | xargs git branch -d
 }
-
