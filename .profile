@@ -25,6 +25,3 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
-
-# Cargo (rust)
-export PATH="$HOME/.cargo/bin:$PATH"

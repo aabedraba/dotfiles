@@ -22,4 +22,4 @@ tmux send-keys "j street;npm run test -- --watch" C-m
 # Go to upper pane and load environments: (alias envs='export $(grep -v '^#' .env)')
 tmux select-pane -U
 tmux send-keys "envs" C-m
-tmux send-keys "docker-compose up -d postgres" C-m
+tmux send-keys "docker-compose up -d postgres;code ." C-m
