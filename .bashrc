@@ -182,6 +182,8 @@ alias s="npm start"
 alias n="node -r esm"
 alias nn="npx nodemon -r esm"
 alias tsn="npx ts-node -r esm"
+alias psave="npx prisma migrate save --experimental --schema src/prisma/schema.prisma"
+alias pup="npx prisma migrate up --experimental --schema src/prisma/schema.prisma"
 ## Bazel
 alias bazel="bazel-1.0.0"
 ## Git config
@@ -218,3 +220,5 @@ setupstream() {
 deletemerged() {
     git branch --merged master | egrep -v '^\s*\*?\s*master$' | xargs git branch -d
 }
+
+
