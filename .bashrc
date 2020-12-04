@@ -184,6 +184,7 @@ alias nn="npx nodemon -r esm"
 alias tsn="npx ts-node -r esm"
 alias psave="npx prisma migrate save --experimental --schema src/prisma/schema.prisma"
 alias pup="npx prisma migrate up --experimental --schema src/prisma/schema.prisma"
+alias pst="npx prisma studio --schema src/prisma/schema.prisma"
 ## Bazel
 alias bazel="bazel-1.0.0"
 ## Git config
@@ -201,6 +202,9 @@ alias p="git push"
 alias prune="git fetch --prune"
 alias show="hub pr view --web"
 alias draft="hub pr create -d"
+alias b="hub repo view --web"
+alias tc="npx tsc --watch"
+alias test="npm run test -- --watch" 
 #Stash, change branch, and pop
 stp () {
     git stash
@@ -220,5 +224,13 @@ setupstream() {
 deletemerged() {
     git branch --merged master | egrep -v '^\s*\*?\s*master$' | xargs git branch -d
 }
-
+# Next Dev Build
+ndb() {
+    rm -rf dist
+    echo "Building files..."
+    npx tsc
+    echo "Finished building project"
+    npm run copy
+    npm run next-build
+}
 
