@@ -161,7 +161,13 @@ export NVM_DIR="$HOME/.nvm"
 complete -C /usr/local/bin/terraform terraform
 
 ## Export envs for .env variable
-alias envs='export $(grep -v '^#' .env)'
+envs(){
+   ENV_FILE=".env"
+   if [ $# -gt 0 ]; then
+      ENV_FILE="$1";
+   fi;
+   export $(grep -v '^#' $ENV_FILE)
+}
 
 ## Start tmux
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
@@ -204,7 +210,8 @@ alias show="hub pr view --web"
 alias draft="hub pr create -d"
 alias b="hub repo view --web"
 alias tc="npx tsc --watch"
-alias test="npm run test -- --watch" 
+alias jest="npm run test -- --watch"
+alias studio="npx prisma studio --schema src/prisma/schema.prisma"
 #Stash, change branch, and pop
 stp () {
     git stash
