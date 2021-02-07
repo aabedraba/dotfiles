@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Start a session called work
+session="work"
+
+# Using j (https://github.com/gsamokovarov/jump) to move to work directory
+tmux send-keys "j street; code ." C-m 
+
+# Split horizontally and run typescript compiler
+tmux splitw -h
+tmux send-keys "j street;npx tsc --watch" C-m 
+
+# Split vertically
+tmux splitw -v
+tmux send-keys "j street" C-m
+
+# Go to left pane, split vertically and run tests
+tmux select-pane -L 
+tmux splitw -v
+tmux send-keys "j street;npm run test -- --watch" C-m 
+
+# Go to upper pane and load environments: (alias envs='export $(grep -v '^#' .env)')
+tmux select-pane -U
+tmux send-keys "envs" C-m
+tmux send-keys "docker-compose up -d postgres" C-m
