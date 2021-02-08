@@ -1,1 +1,3 @@
-/Users/aabedraba/.zprofile
+eval $(/usr/local/homebrew/bin/brew shellenv)
+
+
