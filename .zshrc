@@ -36,7 +36,9 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias c="code ."
-
+psg() {
+  ps aux | grep "$@"
+}
 ## Node
 
 alias s="npm start"
