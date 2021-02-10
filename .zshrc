@@ -11,12 +11,13 @@ source $ZSH/oh-my-zsh.sh
 bindkey "\M-B\M- " magic-space # https://relativkreativ.at/articles/why-chaining-commands-with-pipes-in-mac-os-x-does-not-always-work 
 export EDITOR=vim
 # Add Export envs for .env variable
-envs(){
-   ENV_FILE=".env"
-   if [ $# -gt 0 ]; then
-      ENV_FILE="$1";
-   fi;
-   export $(grep -v '^#' $ENV_FILE)
+envs () {
+	ENV_FILE=".env"
+	if [ $# -gt 0 ]
+	then
+		ENV_FILE=".env-$1"
+	fi
+	export $(grep -v '^#' $ENV_FILE)
 }
 
 eval "$(jump shell)"
