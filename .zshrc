@@ -9,7 +9,7 @@ source $ZSH/oh-my-zsh.sh
 
 ## Misc
 bindkey "\M-B\M- " magic-space # https://relativkreativ.at/articles/why-chaining-commands-with-pipes-in-mac-os-x-does-not-always-work 
-export EDITOR=vim
+# export EDITOR=vim
 # Add Export envs for .env variable
 envs () {
 	ENV_FILE=".env"
@@ -19,8 +19,9 @@ envs () {
 	fi
 	export $(grep -v '^#' $ENV_FILE)
 }
-
+alias hg='history | grep'
 eval "$(jump shell)"
+source ~/.zshrc-private
 
 # Google Cloud
 if [ -f '/opt/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/google-cloud-sdk/path.zsh.inc'; fi
@@ -46,8 +47,8 @@ alias s="npm start"
 alias n="node -r esm"
 alias nn="npx nodemon -r esm"
 alias tsn="npx ts-node -r esm"
-alias psave="npx prisma migrate save --experimental --schema src/prisma/schema.prisma"
-alias pup="npx prisma migrate up --experimental --schema src/prisma/schema.prisma"
+alias migratedev="npx prisma migrate dev --schema src/prisma/schema.prisma"
+alias migrateprod="npx prisma migrate deploy --schema src/prisma/schema.prisma"
 alias tc="npx tsc --watch"
 alias jest="npm run test -- --watch"
 alias studio="npx prisma studio --schema src/prisma/schema.prisma"
@@ -57,8 +58,10 @@ ndb() { #next dev build
     npx tsc
     echo "Finished building project"
     npm run copy
-    npm run next-build
+    echo "Generating types"
     npm run generate
+    echo "Building next"
+    npm run next-build
 }
 
 ## Git config
@@ -68,10 +71,14 @@ alias hub="gh"
 alias fp="git push -f"
 alias amend="git commit --amend && fp"
 alias master="git checkout master && git pull"
+alias main="git checkout main && git pull" 
 alias st="git stash"
 alias sd="git stash && git stash drop"
 alias stat="git status"
-alias prk="hub pr create -r kevinsimper"
+alias prk="hub pr create -r kevinsimper && show"
+alias prj="hub pr create -r jho-gm && show"
+alias prc="hub pr create -r cecastosic && show" 
+alias prm="hub pr create -r manuhortet && show"
 alias pr="hub pr create"
 alias p="git push"
 alias prune="git fetch --prune"
@@ -99,5 +106,3 @@ timezsh() {
   shell=${1-$SHELL}
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
-
-
