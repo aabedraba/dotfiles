@@ -42,6 +42,10 @@ alias c="code ."
 psg() {
   ps aux | grep "$@"
 }
+
+## Flutter
+export PATH="$PATH:/opt/flutter/bin"
+
 ## Node
 
 alias s="npm start"
