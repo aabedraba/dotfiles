@@ -32,6 +32,7 @@ if [ -f '/opt/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/google-cloud-
 #  exec tmux
 #fi
 
+export PATH=$PATH:"/opt/toit/"
 export PATH=$PATH:"/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 export PATH=$PATH:"/Users/aabedraba/github/aabedraba/dotfiles/automate"
 alias ll='ls -alF'
@@ -106,3 +107,4 @@ timezsh() {
   shell=${1-$SHELL}
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
+
