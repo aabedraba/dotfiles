@@ -44,7 +44,7 @@ psg() {
 }
 
 ## Flutter
-export PATH="$PATH:/opt/flutter/bin"
+export PATH="$PATH:/Users/aabedraba/github/flutter/bin"
 
 ## Node
 
@@ -112,3 +112,5 @@ timezsh() {
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
+export PATH="/usr/local/homebrew/opt/mysql-client/bin:$PATH"
+export PATH="$PATH":"$HOME/.pub-cache/bin"
