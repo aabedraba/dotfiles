@@ -1,7 +1,7 @@
 ## oh my zsh
 export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
-export ZSH="/Users/aabedraba/.oh-my-zsh"
+export ZSH="/Users/$(whoami)/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 plugins=(git zsh-nvm)
 source $ZSH/oh-my-zsh.sh
@@ -21,7 +21,6 @@ envs () {
 }
 alias hg='history | grep'
 eval "$(jump shell)"
-source ~/.zshrc-private
 
 # Google Cloud
 if [ -f '/opt/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/google-cloud-sdk/path.zsh.inc'; fi
