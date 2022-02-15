@@ -3,7 +3,7 @@ export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
 export ZSH="/Users/$(whoami)/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
-plugins=(git zsh-nvm)
+plugins=(git zsh-nvm kubectl minikube)
 source $ZSH/oh-my-zsh.sh
 # DISABLE_MAGIC_FUNCTIONS="true"
 
@@ -113,3 +113,12 @@ timezsh() {
 
 export PATH="/usr/local/homebrew/opt/mysql-client/bin:$PATH"
 export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+## Kubernetes
+alias tk="kubectl-testkube"
+alias kc="kubectx"
+alias kn="kubens"
+showctx() {
+	source "/opt/homebrew/opt/kube-ps1/share/kube-ps1.sh"
+	PS1='$(kube_ps1)'$PS1
+}
