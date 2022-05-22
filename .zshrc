@@ -3,7 +3,7 @@ export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
 export ZSH="/Users/$(whoami)/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
-plugins=(git zsh-nvm kubectl minikube)
+plugins=(npx yarn brew git terraform golang docker zsh-nvm kubectl minikube)
 source $ZSH/oh-my-zsh.sh
 # DISABLE_MAGIC_FUNCTIONS="true"
 
@@ -32,18 +32,16 @@ if [ -f '/opt/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/google-cloud-
 #fi
 
 export PATH=$PATH:"/opt/toit/"
-export PATH=$PATH:"/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 export PATH=$PATH:"/Users/aabedraba/github/aabedraba/dotfiles/automate"
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias c="code ."
 psg() {
   ps aux | grep "$@"
 }
 
 ## Flutter
-export PATH="$PATH:/Users/aabedraba/github/flutter/bin"
+export PATH="$PATH:/opt/flutter/bin"
 
 ## Node
 
@@ -114,11 +112,21 @@ timezsh() {
 export PATH="/usr/local/homebrew/opt/mysql-client/bin:$PATH"
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 
+## Golang
+export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:/Users/abdallahabedraba/go/bin"
+
 ## Kubernetes
 alias tk="kubectl-testkube"
 alias kc="kubectx"
 alias kn="kubens"
-showctx() {
-	source "/opt/homebrew/opt/kube-ps1/share/kube-ps1.sh"
-	PS1='$(kube_ps1)'$PS1
-}
+alias kd="kubectl describe" 
+
+export PATH="$PATH:/usr/local/istio-1.13.4/bin"
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/abdallahabedraba/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/abdallahabedraba/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/abdallahabedraba/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/abdallahabedraba/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
