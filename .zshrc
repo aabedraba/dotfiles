@@ -3,14 +3,13 @@ export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
 export ZSH="/Users/$(whoami)/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
-plugins=(npx yarn brew git terraform golang docker zsh-nvm kubectl minikube)
+plugins=(yarn brew git terraform golang docker zsh-nvm kubectl minikube)
 source $ZSH/oh-my-zsh.sh
 # DISABLE_MAGIC_FUNCTIONS="true"
 
 ## Misc
 bindkey "\M-B\M- " magic-space # https://relativkreativ.at/articles/why-chaining-commands-with-pipes-in-mac-os-x-does-not-always-work 
-# export EDITOR=vim
-# Add Export envs for .env variable
+
 envs () {
 	ENV_FILE=".env"
 	if [ $# -gt 0 ]
@@ -19,87 +18,45 @@ envs () {
 	fi
 	export $(grep -v '^#' $ENV_FILE)
 }
+
 alias hg='history | grep'
 eval "$(jump shell)"
 
-# Google Cloud
-if [ -f '/opt/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/google-cloud-sdk/path.zsh.inc'; fi
-if [ -f '/opt/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/google-cloud-sdk/completion.zsh.inc'; fi
-
-## Start tmux
-#if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-#  exec tmux
-#fi
-
-export PATH=$PATH:"/opt/toit/"
-export PATH=$PATH:"/Users/aabedraba/github/aabedraba/dotfiles/automate"
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
 psg() {
   ps aux | grep "$@"
 }
 
-## Flutter
-export PATH="$PATH:/opt/flutter/bin"
-
 ## Node
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias s="npm start"
 alias n="node -r esm"
-alias nn="npx nodemon -r esm"
-alias tsn="npx ts-node -r esm"
-alias migratedev="npx prisma migrate dev --schema src/prisma/schema.prisma"
-alias migrateprod="npx prisma migrate deploy --schema src/prisma/schema.prisma"
-alias tc="npx tsc --watch"
-alias jest="npm run test -- --watch"
-alias studio="npx prisma studio --schema src/prisma/schema.prisma"
-ndb() { #next dev build
-    rm -rf dist
-    echo "Building files..."
-    npx tsc
-    echo "Finished building project"
-    npm run copy
-    echo "Generating types"
-    npm run generate
-    echo "Building next"
-    npm run next-build
-}
 
 ## Git config
 
 alias check="hub pr checkout"
-alias hub="gh"
 alias fp="git push -f"
 alias amend="git commit --amend && fp"
 alias master="git checkout master && git pull"
 alias main="git checkout main && git pull" 
 alias st="git stash"
 alias sd="git stash && git stash drop"
-alias stat="git status"
-alias prk="hub pr create -r kevinsimper && show"
-alias prj="hub pr create -r jho-gm && show"
-alias prc="hub pr create -r cecastosic && show" 
-alias prm="hub pr create -r manuhortet && show"
-alias pr="hub pr create"
+alias pr="gh pr create"
 alias p="git push"
-alias prune="git fetch --prune"
-alias show="hub pr view --web"
-alias draft="hub pr create -d"
-alias b="hub repo view --web"
-stp () {
-    git stash
-    git checkout "$@"
-    git stash pop
-}
+alias show="gh pr view --web"
+alias b="gh repo view --web"
 nb () {
     git checkout -b "$@"
 }
 m() {
     git commit -m "$@" && git push
-}
-setupstream() {
-    git branch -u "origin/$(git branch --show-current)"
 }
 deletemerged() {
     git branch --merged master | egrep -v '^\s*\*?\s*master$' | xargs git branch -d
@@ -109,12 +66,6 @@ timezsh() {
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
-export PATH="/usr/local/homebrew/opt/mysql-client/bin:$PATH"
-export PATH="$PATH":"$HOME/.pub-cache/bin"
-
-## Golang
-export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:/Users/abdallahabedraba/go/bin"
 
 ## Kubernetes
 alias tk="kubectl-testkube"
@@ -124,9 +75,8 @@ alias kd="kubectl describe"
 
 export PATH="$PATH:/usr/local/istio-1.13.4/bin"
 
-
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/abdallahabedraba/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/abdallahabedraba/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/aabedraba/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/aabedraba/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/abdallahabedraba/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/abdallahabedraba/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/aabedraba/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/aabedraba/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
