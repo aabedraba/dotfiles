@@ -3,7 +3,7 @@ export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
 export ZSH="/Users/$(whoami)/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
-plugins=(yarn brew git terraform golang docker zsh-nvm kubectl minikube)
+plugins=(httpie helm deno yarn brew git terraform golang docker zsh-nvm kubectl minikube)
 source $ZSH/oh-my-zsh.sh
 # DISABLE_MAGIC_FUNCTIONS="true"
 
@@ -66,6 +66,9 @@ timezsh() {
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
+## Golang
+export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:/Users/aabedraba/go/bin"
 
 ## Kubernetes
 alias tk="kubectl-testkube"
@@ -75,8 +78,17 @@ alias kd="kubectl describe"
 
 export PATH="$PATH:/usr/local/istio-1.13.4/bin"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/aabedraba/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/aabedraba/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+# Google Cloud
+if [ -f '/opt/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/opt/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/google-cloud-sdk/completion.zsh.inc'; fi
 
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/aabedraba/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/aabedraba/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+# https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+export PATH="/Users/aabedraba/.deno/bin:$PATH"
+
+# Kusk Gateway
+export ANALYTICS_ENABLED=false
+
+# LLVM
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
