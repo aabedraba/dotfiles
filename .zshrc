@@ -41,7 +41,7 @@ alias n="node -r esm"
 
 ## Git config
 
-alias check="hub pr checkout"
+alias check="gh pr checkout"
 alias fp="git push -f"
 alias amend="git commit --amend && fp"
 alias master="git checkout master && git pull"
@@ -92,3 +92,6 @@ export ANALYTICS_ENABLED=false
 
 # LLVM
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+
+# Java
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
