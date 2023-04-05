@@ -1,9 +1,16 @@
 ## oh my zsh
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+  autoload -Uz compinit
+  compinit
+fi
 export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
 export ZSH="/Users/$(whoami)/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
-plugins=(httpie helm deno yarn brew git terraform golang docker zsh-nvm kubectl minikube)
+plugins=(httpie deno brew git terraform golang docker zsh-nvm kubectl minikube)
 source $ZSH/oh-my-zsh.sh
 # DISABLE_MAGIC_FUNCTIONS="true"
 
@@ -93,5 +100,12 @@ export ANALYTICS_ENABLED=false
 # LLVM
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
+export DENO_INSTALL="/Users/abdallahabedraba/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
 # Java
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH=$PATH:/Users/abdallahabedraba/.linkerd2/bin
+export PATH=/Users/abdallahabedraba/.groundcover/bin:${PATH}
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
+export PACT_DO_NOT_TRACK=1
