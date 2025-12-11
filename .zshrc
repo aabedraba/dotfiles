@@ -10,21 +10,26 @@ export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
 export ZSH="/Users/$(whoami)/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
-plugins=(httpie deno brew git terraform golang docker zsh-nvm kubectl minikube)
+plugins=(httpie stripe deno brew git docker zsh-nvm)
 source $ZSH/oh-my-zsh.sh
 # DISABLE_MAGIC_FUNCTIONS="true"
 
 ## Misc
-bindkey "\M-B\M- " magic-space # https://relativkreativ.at/articles/why-chaining-commands-with-pipes-in-mac-os-x-does-not-always-work 
+bindkey "\M-B\M- " magic-space # https://relativkreativ.at/articles/why-chaining-commands-with-pipes-in-mac-os-x-does-not-always-work
 
-envs () {
+envs() {
 	ENV_FILE=".env"
 	if [ $# -gt 0 ]
 	then
-		ENV_FILE=".env-$1"
+		ENV_FILE=".env.$1"
+		echo "Using $ENV_FILE"
 	fi
 	export $(grep -v '^#' $ENV_FILE)
 }
+
+## psql
+
+export PATH="/usr/local/opt/libpq/bin:$PATH"
 
 alias hg='history | grep'
 eval "$(jump shell)"
@@ -43,8 +48,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-alias s="npm start"
-alias n="node -r esm"
 
 ## Git config
 
@@ -52,7 +55,7 @@ alias check="gh pr checkout"
 alias fp="git push -f"
 alias amend="git commit --amend && fp"
 alias master="git checkout master && git pull"
-alias main="git checkout main && git pull" 
+alias main="git checkout main && git pull"
 alias st="git stash"
 alias sd="git stash && git stash drop"
 alias pr="gh pr create"
@@ -68,44 +71,32 @@ m() {
 deletemerged() {
     git branch --merged master | egrep -v '^\s*\*?\s*master$' | xargs git branch -d
 }
-timezsh() {
-  shell=${1-$SHELL}
-  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
-}
-
-## Golang
-export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:/Users/aabedraba/go/bin"
-
-## Kubernetes
-alias tk="kubectl-testkube"
-alias kc="kubectx"
-alias kn="kubens"
-alias kd="kubectl describe" 
-
-export PATH="$PATH:/usr/local/istio-1.13.4/bin"
 
 # Google Cloud
 if [ -f '/opt/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/google-cloud-sdk/path.zsh.inc'; fi
 if [ -f '/opt/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/google-cloud-sdk/completion.zsh.inc'; fi
 
-# https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 export PATH="/Users/aabedraba/.deno/bin:$PATH"
 
-# Kusk Gateway
-export ANALYTICS_ENABLED=false
+# Created by `pipx` on 2024-10-25 16:14:34
+export PATH="$PATH:/Users/aabedraba/.local/bin"
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
-# LLVM
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+# bun completions
+[ -s "/Users/aabedraba/.bun/_bun" ] && source "/Users/aabedraba/.bun/_bun"
 
-export DENO_INSTALL="/Users/abdallahabedraba/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
-# Java
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-export PATH=$PATH:/Users/abdallahabedraba/.linkerd2/bin
-export PATH=/Users/abdallahabedraba/.groundcover/bin:${PATH}
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
-export PACT_DO_NOT_TRACK=1
+# pnpm
+export PNPM_HOME="/Users/aabedraba/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
