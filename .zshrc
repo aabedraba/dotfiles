@@ -62,8 +62,68 @@ deletemerged() {
 # Deno
 export PATH="/Users/aabedraba/.deno/bin:$PATH"
 
-# fnm
-FNM_PATH="/opt/homebrew/opt/fnm/bin"
-if [ -d "$FNM_PATH" ]; then
-  eval "`fnm env`"
-fi
+# Go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+# Created by `pipx` on 2025-12-13 22:13:48
+export PATH="$PATH:/Users/abdallah/.local/bin"
+
+# Flutter 
+export CHROME_EXECUTABLE="/Applications/Chromium.app/Contents/MacOS/Chromium"
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /Users/abdallah/.dart-cli-completion/zsh-config.zsh ]] && . /Users/abdallah/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH=$PATH:$HOME/fvm/default/bin
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$HOME/.pub-cache/bin
+export PATH=/opt/homebrew/share/google-cloud-sdk/bin:"$PATH"
+export PATH=/usr/local/TinyTeX/bin/universal-darwin:"$PATH"
+alias ap='pbpaste | xargs adb shell input text'
+alias eap='adb shell input text "a@abedraba.com"'
+alias eas="pnpm dlx eas-cli@latest"
+
+# Flutter End
+
+# Telemetry 
+
+export NEXT_TELEMETRY_DISABLED=1
+export DISABLE_TELEMETRY=1
+
+# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# pnpm
+export PNPM_HOME="/Users/abdallah/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
+
+export RESUMX_TELEMETRY=0
+# nub node shim
+export PATH="$HOME/.nub/node-shim:$PATH"
+
+# nub shims
+export PATH="$HOME/.nub/shims:$PATH"
+source /Users/abdallah/.zsh_kraft_completion;
+
+# unikraft
+export KRAFTKIT_NO_CHECK_UPDATES=true
+export KRAFTKIT_COLLECT_ANONYMOUS_TELEMETRY=true
+source <(unikraft completion -c zsh)
+
+# bun completions
+[ -s "/Users/abdallah/.bun/_bun" ] && source "/Users/abdallah/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
